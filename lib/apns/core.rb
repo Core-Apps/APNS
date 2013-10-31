@@ -39,7 +39,7 @@ module APNS
   @feedback_port = 2196
 
   # openssl pkcs12 -in mycert.p12 -out client-cert.pem -nodes -clcerts
-  @pem = '/Users/robsiwek/Documents/cert.pem' # this should be the path of the pem file not the contentes
+  #@pem = '/Users/robsiwek/Documents/cert.pem' # this should be the path of the pem file not the contentes
   @pass = nil
 
   @cache_connections = false
@@ -112,7 +112,7 @@ module APNS
   def self.packaged_notification(device_token, message)
     pt = self.packaged_token(device_token)
     pm = self.packaged_message(message)
-    [0, 0, 32, pt, 0, pm.size, pm].pack("ccca*cca*")
+    [0, 0, 32, pt, 0, pm.bytesize, pm].pack("ccca*cca*")
   end
   
   def self.packaged_token(device_token)
